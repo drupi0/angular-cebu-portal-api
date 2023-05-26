@@ -38,6 +38,15 @@ export class Event {
 
   @Prop()
   certificateTemplate: string;
+
+  @Prop()
+  questions: {
+    index: number,
+    question: string,
+    type: string,
+    options?: string[],
+    isRequired: boolean
+  }[];
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);
