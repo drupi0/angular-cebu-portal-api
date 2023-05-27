@@ -1,11 +1,19 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import e from 'express';
 import * as mongoose from 'mongoose';
 
 export type MemberDocument = mongoose.HydratedDocument<Member>;
+export enum MemberRoles {
+  ADMIN = 'ADMIN',
+  USER = 'USER'
+}
 
 @Schema()
 export class Member {
+  
+  _id!: mongoose.Types.ObjectId;
+
   @Prop({ required: true })
   name: string;
 
@@ -38,7 +46,7 @@ export class Member {
   }[];
 
   @Prop()
-  roles: string[];
+  roles: MemberRoles[];
 }
 
 export const MemberSchema = SchemaFactory.createForClass(Member);

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MemberController } from './member.controller';
 import { MemberService } from './member.service';
-import { MemberImplService } from './mongo/member.impl/member.impl.service';
+import { MemberImplService } from './member.impl.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MemberSchema } from './member.schema';
 

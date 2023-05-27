@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
-import { Event, EventDocument } from '../event.schema';
-import { EventService } from '../event.service';
+import { Event, EventDocument } from './event.schema';
+import { EventService } from './event.service';
 import { MemberService } from 'src/member/member.service';
 
 @Injectable()

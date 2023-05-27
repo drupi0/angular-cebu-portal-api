@@ -18,6 +18,16 @@ export class MemberImplService implements MemberService {
         return this.memberModel.findById(memberId).exec();
     }
 
+    async getMemberByEmail(email: string): Promise<Member> {
+        const memberObj: Member = await this.memberModel.findOne({ email: email }).exec();
+
+        if(!memberObj) {
+            return null;
+        }
+
+        return memberObj;
+    };
+
     async createMember(memberObj: Member): Promise<Member> {
         memberObj.createdAt = new Date();
         memberObj.updatedAt = new Date();

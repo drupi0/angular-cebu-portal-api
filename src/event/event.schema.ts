@@ -10,16 +10,19 @@ export class Event {
   name: string;
 
   @Prop()
+  tagLine: string;
+
+  @Prop()
   shortDescription: string
 
   @Prop()
   longDescription: string
 
   @Prop({ required: true })
-  dateStart: Date;
+  dateStart: string;
 
   @Prop({ required: true })
-  dateEnd: Date;
+  dateEnd: string;
 
   @Prop({ required: true })
   location: string;
