@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { MemberService } from 'src/member/member.service';
-import { Auth, AuthDocument, AuthToken, JWT_CONSTANTS } from './auth.schema';
+import { MemberService } from '../member/member.service';
+import { Auth, AuthToken, JWT_CONSTANTS } from './auth.schema';
 import { AuthService } from './auth.service';
 
-import { Member } from 'src/member/member.schema';
+import { Member } from '../member/member.schema';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -68,6 +68,6 @@ export class AuthImplService implements AuthService {
     }
 
     constructor(private memberSvc: MemberService, 
-                @InjectModel(Auth.name) private readonly authModel: Model<AuthDocument>,
+                @InjectModel(Auth.name) private readonly authModel: Model<Auth>,
                 private jwtSvc: JwtService) {}
 }

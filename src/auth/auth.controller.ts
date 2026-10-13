@@ -1,8 +1,7 @@
-import { BadRequestException, Body, Controller, Post, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthToken } from './auth.schema';
-import { LocalGuard } from './auth.guard';
-import { Member } from 'src/member/member.schema';
+import { Member } from '../member/member.schema';
 
 @Controller('auth')
 export class AuthController {

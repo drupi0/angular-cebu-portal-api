@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
-import { Member, MemberDocument } from 'src/member/member.schema';
-import { MemberService } from 'src/member/member.service';
+import { Member } from './member.schema';
+import { MemberService } from './member.service';
 
 @Injectable()
 export class MemberImplService implements MemberService {
@@ -43,5 +43,5 @@ export class MemberImplService implements MemberService {
         return this.memberModel.findByIdAndDelete(memberId);
     }
 
-    constructor(@InjectModel(Member.name) private readonly memberModel: Model<MemberDocument>) {}
+    constructor(@InjectModel(Member.name) private readonly memberModel: Model<Member>) {}
 }

@@ -1,13 +1,14 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
+import type { JwtSignOptions } from '@nestjs/jwt';
 
 export type AuthDocument = mongoose.HydratedDocument<Auth>;
 
 @Schema()
 export class Auth {
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Member' })
-  uuid: string;
+  uuid: mongoose.Types.ObjectId;
 
   @Prop({ required: true })
   password: string;
@@ -21,7 +22,6 @@ export interface AuthToken {
 
 export const JWT_CONSTANTS = {
     secret: process.env.SECRET_KEY || 'g94Xc8g@89h3TG^7!yBVKAs7%D9&*J4p#V^Z',
-    expiresIn: process.env.TOKEN_EXPIRY || '1d',
+    expiresIn: (process.env.TOKEN_EXPIRY || '1d') as JwtSignOptions['expiresIn'],
     saltOrRounds: 10
   };
-  

@@ -1,4 +1,4 @@
-import { Member } from "src/member/member.schema";
+import { Member } from "../member/member.schema";
 import { AuthToken } from "./auth.schema";
 
 export class AuthService {

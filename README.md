@@ -1,73 +1,49 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Angular Cebu Portal API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+NestJS application for the Angular Cebu community portal. Framework upgrades are Phase 1 of the [shared migration checklist](../angular-cebu-portal/PHASES.md).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Requirements
 
-## Description
+- Node.js 24.20.0 (`.nvmrc`); use `nvm install` and `nvm use`.
+- npm and the checked-in `package-lock.json`.
+- MongoDB for normal application startup. Phase 1 preserves the existing persistence/authentication model; Better Auth and the replacement database belong to later phases.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Local development
 
-## Installation
-
-```bash
-$ npm install
+```sh
+nvm use
+npm ci
+MONGO_URL=mongodb://127.0.0.1:27017 npm run start:dev
 ```
 
-## Running the app
+The existing database configuration appends `/database` to `MONGO_URL`. Use a server URL without a database path or query string. The API listens on port 3000 and permits the portal at `http://localhost:4200`.
 
-```bash
-# development
-$ npm run start
+Set `SECRET_KEY` and, optionally, `TOKEN_EXPIRY` in the shell environment when using the legacy login endpoints. No `.env` loader is currently configured. Phase 1 is a framework upgrade, not a production-readiness sign-off for the existing authentication and authorization code.
 
-# watch mode
-$ npm run start:dev
+## Checks
 
-# production mode
-$ npm run start:prod
+```sh
+npm run build
+npm run lint
+npm test -- --runInBand
+npm run test:e2e -- --runInBand
+npx tsc --noEmit
 ```
 
-## Test
+The HTTP smoke tests compile the real application module graph, use a disconnected Mongoose connection and mock event reads. They check startup, routing, serialization and authentication failures without a running database. They do not verify live MongoDB persistence or the future Better Auth flow.
 
-```bash
-# unit tests
-$ npm run test
+NestJS 12 distributes ESM packages. The application remains CommonJS using Node's ESM interoperability; Jest scripts enable VM modules for those dependencies. TypeScript 6.0 is pinned to match the selected tooling. The normal build produces `dist/main.js`:
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```sh
+npm run build
+npm run start:prod
 ```
 
-## Support
+## Current upgrade versions
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- NestJS core/common/platform/testing: 12.1.3
+- Nest CLI: 12.0.8
+- TypeScript: 6.0.3
+- Mongoose: 9.11.2
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Dependency changes are recorded in `package-lock.json`. Follow `PHASES.md` before replacing Appwrite or changing the database/authentication model.

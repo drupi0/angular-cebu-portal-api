@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthImplService } from './auth.impl.service';
-import { MemberModule } from 'src/member/member.module';
+import { MemberModule } from '../member/member.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthSchema, JWT_CONSTANTS } from './auth.schema';
 import { PassportModule } from '@nestjs/passport';

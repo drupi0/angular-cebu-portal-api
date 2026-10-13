@@ -1,7 +1,7 @@
 import { Body, Controller, Get, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { Member } from './member.schema';
 import { MemberService } from './member.service';
-import { TokenGuard } from 'src/auth/auth.guard';
+import { TokenGuard } from '../auth/auth.guard';
 
 @Controller('member')
 export class MemberController {

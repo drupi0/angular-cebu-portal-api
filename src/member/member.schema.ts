@@ -1,6 +1,5 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import e from 'express';
 import * as mongoose from 'mongoose';
 
 export type MemberDocument = mongoose.HydratedDocument<Member>;
